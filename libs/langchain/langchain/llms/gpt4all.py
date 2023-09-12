@@ -91,6 +91,9 @@ class GPT4All(LLM):
 
     client: Any = None  #: :meta private:
 
+    device: Optional[str] = Field("cpu", alias="device")
+    """Device name: cpu, gpu, nvidia, intel, amd or DeviceName e.g: 'NVIDIA GeForce RTX 3060 Ti'."""
+
     class Config:
         """Configuration for this pydantic object."""
 
@@ -141,6 +144,7 @@ class GPT4All(LLM):
             model_path=model_path or None,
             model_type=values["backend"],
             allow_download=values["allow_download"],
+            device=values["device"]
         )
         if values["n_threads"] is not None:
             # set n_threads
